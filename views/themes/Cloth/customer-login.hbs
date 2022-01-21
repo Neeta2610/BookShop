@@ -1,0 +1,51 @@
+<main class="login-page container py-4 py-lg-5 my-4">
+  <div class="row">
+    <div class="col-md-6 m-auto">
+      <div class="card border-0 box-shadow" style="width: 100%;">
+        <div class="card-body">
+          <h2 class="h4 mb-1">Sign in</h2>
+          <div class="py-3">
+            <h3 class="d-inline-block align-middle font-size-base font-weight-semibold mb-2 mr-2">With social account:
+            </h3>
+            <div class="d-inline-block align-middle"><a class="social-btn sb-google mr-2 mb-2" href="https://accounts.google.com/signin/v2/identifier?passive=1209600&continue=https%3A%2F%2Faccounts.google.com%2F&followup=https%3A%2F%2Faccounts.google.com%2F&flowName=GlifWebSignIn&flowEntry=ServiceLogin"
+                data-toggle="tooltip" title="Sign in with Google"><i class="czi-google"></i></a><a
+                class="social-btn sb-facebook mr-2 mb-2" href="https://en-gb.facebook.com/login/" data-toggle="tooltip" title="Sign in with Facebook"><i
+                  class="czi-facebook"></i></a><a class="social-btn sb-twitter mr-2 mb-2" href="https://twitter.com/login" data-toggle="tooltip"
+                title="Sign in with Twitter"><i class="czi-twitter"></i></a></div>
+          </div>
+          <hr>
+          <h3 class="font-size-base pt-4 pb-2">Or using form below</h3>
+          <form class="needs-validation" novalidate autocomplete="off" id="signin-tab">
+            <div class="input-group-overlay form-group">
+              <div class="input-group-prepend-overlay"><span class="input-group-text"><i class="czi-mail"></i></span>
+              </div>
+              <input class="form-control prepended-form-control" type="email" id="email2" name="email" placeholder="Email" required>
+               <div class="invalid-feedback">Please provide a valid email address.</div>
+            </div>
+            <div class="input-group-overlay form-group">
+              <div class="input-group-prepend-overlay"><span class="input-group-text"><i class="czi-locked"></i></span>
+              </div>
+              <div class="password-toggle" for="si-password">
+                <input class="form-control prepended-form-control" type="password" id="password2" name="password" placeholder="Password" required>
+                <label class="password-toggle-btn">
+                  <input class="custom-control-input password-show" type="checkbox"><i
+                    class="czi-eye password-toggle-indicator"></i><span class="sr-only">Show password</span>
+                </label>
+              </div>
+            </div>
+            <div class="d-flex flex-wrap justify-content-between">
+              <div class="custom-control custom-checkbox">
+                <input class="custom-control-input" type="checkbox" checked id="remember_me">
+                <label class="custom-control-label" for="remember_me">Remember me</label>
+              </div><a class="nav-link-inline font-size-sm" href="/customer/forgot-password">Forgot password?</a>
+            </div>
+            <hr class="mt-4">
+            <div class="text-right pt-4">
+              <button class="btn btn-primary btn-shadow" id="customerloginForm2" type="submit"><i class="czi-sign-in mr-2 ml-n21"></i>Sign In</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>

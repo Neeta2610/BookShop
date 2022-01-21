@@ -1,0 +1,150 @@
+<div class="product-layout col-sm-9 offset-sm-1">
+    <div class="row">
+        {{!-- Product Images --}}
+        <div class="col-sm-12 col-md-6 m-auto">
+            {{#if result.productImage}}
+
+            <div class="row bg-scr">
+                <img class="" src="{{result.productImage.path}}">
+            </div>
+
+
+            {{else}}
+            <div class="title-image-container">
+                <img src="/uploads/placeholder.png" id="product-title-image" class="product-title-image img-fluid"
+                    alt="...">
+            </div>
+            {{/if}}
+        </div>
+
+
+        {{!-- Product Details --}}
+        <div class="col-sm-12 col-md-6 pro-details m-auto">
+            <div class="row">
+                <h1 class="col-md-10 product-title text-truncate">{{result.productTitle}}</h1>
+                {{#if variants}}
+                <h4 class="col-md-10 product-price mp-0">{{currencySymbol config.currencySymbol}}{{variants.0.price}}
+                </h4>
+                {{else}}
+                <div class="d-inline-flex">
+                    {{!-- <p class="col-md-10 mrp-top"> <span class="price">M.R.P: </span> --}}
+                        {{!-- <span class="mrp">{{currencySymbol config.currencySymbol}}</span></p> --}}
+
+                    <h4 class="col-md-10 product-price mp-0"> <span class="price">Price: </span>
+                        {{currencySymbol config.currencySymbol}}{{result.productPrice}}</h4>
+                </div>
+
+                <p class="taxes col-md-10">Inclusive of all taxes</p>
+                {{/if}}
+                {{#if variants}}
+                <h4 class="col-md-10 product-option">{{ @root.__ "Options" }}</h4>
+                <div class="col-md-10">
+                    <select id="product_variant" class="form-control">
+                        {{#each variants}}
+                        <option value="{{this._id}}" data-price="{{this.price}}">{{this.title}}</option>
+                        {{/each}}
+                    </select>
+                </div>
+                {{/if}}
+                {{#if config.trackStock}}
+                {{#ifCond result.productStock '==' 0}}
+                <div class="col-md-10">
+                    <h4 class="text-danger text-center">
+                        Out of stock
+                    </h4>
+                </div>
+                {{/ifCond}}
+                {{/if}}
+                <div class="col-md-10 productOptions">
+                    <div class="input-group">
+                        <div class="input-group-prepend input-btn">
+                            <button class="form-control pull-left btn-number qty-btn-minus" type="button">
+                                <i class="fa fa-minus" aria-hidden="true"></i>
+                            </button>
+                        </div>
+                        <div class="col-quan">
+                            <input type="number" class="form-control add-color text-center dropdown no-pad"
+                                id="product_quantity" min="1" max="10" value="1">
+                        </div>
+                        <div class="input-group-append input-btn">
+                            <button class="form-control pull-left btn-number qty-btn-plus" type="button">
+                                <i class="fa fa-plus" aria-hidden="true"></i>
+                            </button>
+                        </div>
+
+                        <div class="col-md-4 btnAddToCart">
+                            <button class="btn btn-primary btn-block product-add-to-cart"
+                                type="button" data-val="{{this.productSchool}}">{{ @root.__ "Add to cart" }}</button>
+                        </div>
+                    </div>
+                </div>
+                {{!-- <div class="features">
+                    <h1 class="heading">Features</h1>
+                    <div class="body_text">
+                        <ul>
+                            <li>Removes stains effectively</li>
+                            <li>Leaves a pleasant fragrance</li>
+                            <li>Has the power of 10 hands</li>
+                        </ul>
+                    </div>
+                </div> --}}
+                {{!-- {{#if result.productComment}}
+                <div class="col-md-10">
+                    {{ @root.__ "Leave a comment?" }}
+                    <textarea class="form-control" id="product_comment"></textarea>
+                </div>
+                {{/if}} --}}
+
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="row pl-0">
+        <div class="description col">
+            <h1 class="heading">Description</h1>
+            <div class="body_text">
+                {{{fixTags result.productDescription}}}
+            </div>
+        </div>
+    </div>
+    <hr>
+
+    {{!-- Related Products --}}
+    {{#if config.showRelatedProducts}}
+    {{#if relatedProducts}}
+
+    <div class="recom-slider">
+        <h3 class="heading top-marg-20">Related Products
+            <hr class="top-marg-20">
+        </h3>
+        <div class="parent-box owl-carousel">
+            {{#each relatedProducts}}
+
+            <div class="box">
+                <div class="single-product">
+                    <div class="product-thumb">
+                        {{#if productImage}}
+                        <img src="{{this.productImage.path}}" alt="...">
+                        {{else}}
+                        <img src="/uploads/placeholder.png" alt="...">
+                        {{/if}}
+                        <a href="#" class="btn-round" data-val ="{{this.productSchool}}"><i class="fa fa-shopping-cart"></i></a>
+                    </div>
+
+                    <div class="product-title">
+                        <h3><a href="/product/{{this._id}}">{{this.productTitle}}</a></h3>
+                        <p>{{currencySymbol ../config.currencySymbol}}{{formatAmount productPrice}}
+                            {{!-- <span>{{currencySymbol ../config.currencySymbol}}</span> --}}
+                        </p>
+                        {{!-- <span class="save">Save ₹80</span> --}}
+                    </div>
+                </div>
+            </div>
+            {{/each}}
+        </div>
+    </div>
+    {{/if}}
+    {{/if}}
+</div>
+<input type="hidden" id="productId" value="{{result._id}}">
+<input type="hidden" id="currencySymbol" value="{{currencySymbol config.currencySymbol}}">

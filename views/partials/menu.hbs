@@ -1,0 +1,85 @@
+<aside class="col-lg-2">
+    <!-- Account menu toggler (hidden on screens larger 992px)-->
+    <div class="d-block d-lg-none p-4"><a class="btn btn-outline-accent d-block" href="#account-menu"
+            data-toggle="collapse"><i class="czi-menu mr-2"></i>Account menu</a></div>
+    <!-- Actual menu-->
+    <div class="cz-sidebar-static h-100 p-0">
+        <div class="secondary-nav border-right" id="account-menu">
+            <ul class="list-unstyled mb-0">
+                {{!-- <li class="nav-item"> <a href="/admin"><img class="sidebar-brand m-3" src="/favicon.png"></a>
+</li> --}}
+                <li class="nav-item"> <a href="/admin" style="font-size:25px; color:#A52A2A;  font-family: Arial, Helvetica, sans-serif ;"> Book World Jammu</a>
+</li>
+                <li class="border-bottom mb-0"><a
+                        class="nav-link-style d-flex align-items-center px-4 py-3 sidebar-search" data-toggle="modal"
+                        data-target="#globalSearchModal" href="#">
+                        <i class="czi-search opacity-60 mr-2"></i>Search</a>
+                </li>
+
+                <li class="border-bottom mb-0"><a class="nav-link-style d-flex align-items-center px-4 py-3"
+                        href="/admin/dashboard"><i class="czi-list opacity-60 mr-2"></i>Dashboard</a></li>
+            </ul>
+            <div class="bg-secondary p-4">
+                <h3 class="font-size-sm mb-0 text-muted">Manage</h3>
+            </div>
+            <ul class="list-unstyled mb-0">
+            {{#ifCond session.isAdmin '===' true}}
+                <li class="border-bottom mb-0 d-flex"><a class="nav-link-style d-flex align-items-center px-4 py-3"
+                        href="/admin/products"><i class="czi-lable opacity-60 mr-2"></i>Products</a>
+                    <a class="sidebar-link-addon text-muted m-auto" href="/admin/product/new">
+                    {{{feather 'plus'}}}</a></li>
+            {{else}}
+                <li class="border-bottom mb-0"><a class="nav-link-style d-flex align-items-center px-4 py-3"
+                        href="/admin/products"><i class="czi-lable opacity-60 mr-2"></i>Products</a></li>
+            {{/ifCond}}
+
+                <li class="border-bottom mb-0 d-flex"><a class="nav-link-style d-flex align-items-center px-4 py-3"
+                        href="/admin/orders"><i class="czi-basket opacity-60 mr-2"></i>Orders</a>
+                    <a class="sidebar-link-addon text-muted m-auto" href="/admin/order/create">
+                    {{{feather 'plus'}}}
+                </a>
+                </li>
+                <li class="border-bottom mb-0 d-flex"><a class="nav-link-style d-flex align-items-center px-4 py-3"
+                        href="/admin/pincode"><i class="czi-location opacity-60 mr-2"></i>Pincodes</a>
+                    <a class="sidebar-link-addon text-muted m-auto" href="/admin/pincode/new">
+                    {{{feather 'plus'}}}
+                </a>
+                </li>
+
+                <li class="mb-0 border-bottom"><a class="nav-link-style d-flex align-items-center px-4 py-3"
+                        href="/admin/customers"><i class="czi-user opacity-60 mr-2"></i>Customers</a>
+
+                </li>
+
+                 <li class="mb-0 d-flex"><a class="nav-link-style d-flex align-items-center px-4 py-3"
+                        href="/admin/users"><i class="czi-user-circle opacity-60 mr-2"></i>Users</a>
+                    <a class="sidebar-link-addon text-muted m-auto" href="/admin/user/new">
+                    {{{feather 'plus'}}}
+                </a>            
+                </li>
+                <li class="mb-0 d-flex"><a class="nav-link-style d-flex align-items-center px-4 py-3"
+                        href="/admin/schools"><i class="czi-user-circle opacity-60 mr-2"></i>School</a>
+                    <a class="sidebar-link-addon text-muted m-auto" href="/admin/school/new">
+                    {{{feather 'plus'}}}
+                </a>            
+                </li>
+            </ul>
+            <div class="bg-secondary p-4">
+                <h3 class="font-size-sm mb-0 text-muted">Settings</h3>
+            </div>
+            <ul class="list-unstyled mb-0">
+                <li class="border-bottom mb-0"><a class="nav-link-style d-flex align-items-center px-4 py-3"
+                        href="/admin/settings"><i class="czi-settings opacity-60 mr-2"></i>General Settings</a></li>
+                <li class="border-bottom mb-0"><a class="nav-link-style d-flex align-items-center px-4 py-3"
+                        href="/admin/settings/menu"><i class="czi-menu opacity-60 mr-2"></i>Menu</a></li>
+                <li class="border-bottom mb-0"><a class="nav-link-style d-flex align-items-center px-4 py-3"
+                        href="/admin/settings/pages"><i class="czi-document opacity-60 mr-2"></i>Static Pages</a></li>
+                <li class="border-bottom mb-0"><a class="nav-link-style d-flex align-items-center px-4 py-3"
+                        href="/admin/settings/discounts"><i class="czi-discount opacity-60 mr-2"></i>Discount Codes</a>
+                </li>
+                <li class="mb-0"><a class="nav-link-style d-flex align-items-center px-4 py-3"
+                        href="/admin/logout"><i class="czi-sign-out opacity-60 mr-2"></i>Sign Out</a></li>
+            </ul>
+        </div>
+    </div>
+</aside>

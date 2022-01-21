@@ -1,0 +1,318 @@
+<script>
+  function onDropdownChange() {
+    console.log($('#pincodes').val(), $('#itemPrice').text())
+    let obj = {
+      pincode: $('#pincodes').val(),
+      priceTotal: $('#itemPrice').text()
+    }
+    $.ajax({
+      method: 'POST',
+      url: '/admin/pincode/selected-pincode',
+      data: obj
+    })
+      .done(function (result) {
+        console.log("trueeeeeeeeeeeeeee", result);
+        $("#subTotal").text($('#itemPrice').text())
+        $("#deliveryCharge").text(result.delivery_charge)
+        $("#totalAmount").text(result.totalPrice)
+      })
+      .fail(function (msg) {
+      });
+  }
+
+</script>
+
+{{#if requestId}}
+<div class="modal" tabindex="-1" role="dialog"
+  style="padding-right: 12px; display: block;background-color:rgb(0,0,0,0.5)">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <ul class="nav nav-tabs card-header-tabs" role="tablist">
+          <li class="nav-item"><a class="nav-link active" href="#otp-tab" data-toggle="tab" role="tab"
+              aria-selected="true"><i class="czi-unlocked mr-2 mt-n1"></i>Verify Mobile Number</a>
+          </li>
+        </ul>
+      </div>
+      <div class="modal-body tab-content py-4">
+        <form action="/customer/confirm" method="post" class="needs-validation tab-pane fade show active"
+          autocomplete="off" novalidate id="signin-tab-customerConfirm">
+          <div class="form-group">
+            <label for="si-email">Enter the OTP from your registered mobile number</label>
+            <input class="form-control" type="tel" name="pin" id="otp" placeholder="1234" required>
+            <input type="hidden" name="requestId" value="{{requestId}}">
+            <div class="invalid-feedback">Please enter the OTP</div>
+            <div class="form-group">
+              <label for="co-note">Enter password</label>
+              <input class="form-control" id="shipPassword" name="shipPassword" id="co-note" rows="6" type="password"
+                placeholder="Password"></input>
+            </div>
+          </div>
+          <button class="btn btn-primary btn-block btn-shadow" type="submit">Verify</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{{/if}}
+
+<main class="sidebar-fixed-enabled" style="background: #F6F9FC">
+  <section class="px-lg-3 pt-4">
+    <div class="px-3 pt-2">
+      <!-- Page title + breadcrumb-->
+      <nav class="mb-4" aria-label="breadcrumb">
+        <ol class="breadcrumb flex-lg-nowrap">
+          <li class="breadcrumb-item"><a class="text-nowrap" href="home-grocery-store.html"><i
+                class="czi-home"></i>Home</a></li>
+          <li class="breadcrumb-item text-nowrap active" aria-current="page">Checkout</li>
+        </ol>
+      </nav>
+      <!-- Content-->
+      <!-- Checkout form-->
+      <form action="/checkout_action" method="POST">
+        <div class="row no-gutters pb-5 mb-xl-3">
+          <!-- Delivery details-->
+          <div class="col-xl-6 mb-3">
+            <h1 class="h2 mb-4">Checkout</h1>
+            <h2 class="h5 mb-4">Your Information</h2>
+            <div class="row">
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label for="co-fn">First name <span class='text-danger'>*</span></label>
+                  <input class="form-control" id="shipFirstname" name="shipFirstname" placeholder="First name"
+                    value="{{@root.session.customerFirstname}}">
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label for="co-ln">Last name <span class='text-danger'>*</span></label>
+                  <input class="form-control" id="shipLastname" name="shipLastname" placeholder="Last name"
+                    value="{{@root.session.customerLastname}}">
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label for="co-ln">Phone number <span class='text-danger'>*</span></label>
+                  <input class="form-control" id="shipPhoneNumber" name="shipPhoneNumber" placeholder="Phone number"
+                    value="{{@root.session.customerPhone}}">
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label for="co-fn">Email address</label>
+                  <input class="form-control" id="shipEmail" name="shipEmail" placeholder="Email address"
+                    value="{{@root.session.customerEmail}}">
+                </div>
+              </div>
+              <div class="col-sm-12">
+                <div class="form-group">
+                  <label for="co-address">Address <span class='text-danger'>*</span></label>
+                  <input class="form-control" id="shipAddr1" name="shipAddr1" placeholder="Address 1"
+                    value="{{@root.session.customerAddress1}}">
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label for="co-ln">State <span class='text-danger'>*</span></label>
+                  <input class="form-control" id="shipState" name="shipState" placeholder="State"
+                    value="{{@root.session.customerState}}">
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <select id="pincodes" name="pincodes" style="width: 12em;margin-top: 1.8em;
+    height: 2.1em;
+    border-color: #ced4da;
+    background-color: #fff;" onchange="onDropdownChange()">
+                  {{#each pincodes}}
+                  <option value="{{this.pincode}}">{{this.pincode}}</option>
+                  {{/each}}
+                </select>
+
+              </div>
+              <div class="col-sm-12">
+                <div class="form-group">
+                  <label for="co-note">Order note</label>
+                  <textarea class="form-control" name="message" id="co-note" rows="6"
+                    placeholder="Please write here any additional information..."></textarea>
+                </div>
+              </div>
+
+            </div>
+            <div class="rounded-lg border p-4 my-3">
+              <h2 class="h6 pb-2">Do you have a coupon code?</h2>
+              <div class="d-flex">
+                <input class="form-control mr-3" type="text" placeholder="Coupon code">
+                <button class="btn btn-outline-primary" type="button">Apply code</button>
+              </div>
+            </div>
+          </div>
+          <!-- Order summary + payment-->
+          <div class="col-xl-5 offset-xl-1 mb-3 mtr-8">
+            <div class="bg-light rounded-lg py-5 px-4 px-sm-5">
+              <h2 class="h5 pb-3">Your order</h2>
+              <div class="cartBodyWrapper">
+                <!-- Item-->
+                {{#each @root.session.cart}}
+                <div class="d-sm-flex justify-content-between align-items-center my-4 pb-3 border-bottom">
+                  <div class="media media-ie-fix d-block d-sm-flex align-items-center text-center text-sm-left">
+                    <a class="d-inline-block mx-auto mr-sm-4" href="/product/{{this.link}}" style="width: 5rem;">
+                      {{#if productImage}}
+                      <img src="{{this.productImage.path}}" alt="{{this.title}} product image"></a>
+                    {{else}}
+                    <img src="/uploads/placeholder.png" alt="{{this.title}} product image"></a>
+                    {{/if}}
+                    <div class="media-body pt-2">
+                      <h3 class="product-title font-size-base mb-1"><a href="/product/{{this.link}}">{{this.title}}</a>
+                      </h3>
+                      <div class="font-size-lg text-accent">
+                        {{currencySymbol @root.config.currencySymbol}}
+                        <span id="itemPrice">{{formatAmount this.totalItemPrice}}</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="pt-2 pt-sm-0 pl-sm-3 mx-auto mx-sm-0 text-center text-sm-left" style="max-width: 9rem;">
+                    <div class="form-group mb-0">
+                      <label class="font-weight-medium" for="quantity1">Quantity</label>
+                      {{#ifCond @root.cartReadOnly '!=' true}}
+                      <div class="cart-quantity">
+                        <button class="btn-qty-minus" type="button"><i class="fas fa-minus"></i></button>
+                        <input type="number" class="cart-product-quantity text-center" data-cartid="{{@key}}"
+                          data-id="{{../this.productId}}" maxlength="2" value="{{../this.quantity}}">
+                        <button class="btn-qty-add" type="button"><i class="fas fa-plus"></i></button>
+                      </div>
+                      {{else}}
+                      <div class="col-4 col-md-6 col-lg-5 col-xl-7 no-pad-left mb-2">
+                      </div>
+                      {{/ifCond}}
+                    </div>
+                    <button data-cartid="{{@key}}" class="btn btn-link px-0 text-danger btn-delete-from-cart"
+                      type="button">
+                      <i class="czi-close-circle mr-2"></i>
+                      <span class="font-size-sm">Remove</span>
+                    </button>
+                  </div>
+                </div>
+                {{/each}}
+              </div>
+              {{#if @root.session.cart}}
+              <button id="empty-cart" class="btn btn-outline-danger btn-block cart-empty-align" type="button">
+                <i class="czi-trash font-size-base mr-2 cart-contents-shipping"></i>Empty cart</button>
+              {{/if}}
+            </div>
+
+
+
+            {{#if @root.session.cart}}
+            <ul class="list-unstyled font-size-sm pt-4 pb-2 px-5 border-bottom">
+              <li class="d-flex justify-content-between align-items-center"><span class="mr-2">Subtotal:</span><span
+                  class="text-right font-weight-medium">{{currencySymbol @root.config.currencySymbol}} <span
+                    id="subTotal">{{formatAmount
+                    @root.session.totalCartAmount}} </span> </span>
+              </li>
+              {{#ifCond @root.session.totalCartShipping '>' 0}}
+              <li class="d-flex justify-content-between align-items-center"><span class="mr-2">Delivery:</span><span
+                  class="text-right font-weight-medium">{{currencySymbol @root.config.currencySymbol}} <span
+                    id="deliveryCharge"> {{formatAmount
+                    @root.session.totalCartShipping}}</span></span>
+              </li>
+              {{else}}
+              <li class="d-flex justify-content-between align-items-center"><span class="mr-2">Delivery:</span><span
+                  class="text-right font-weight-medium">Free</span></li>
+              {{/ifCond}}
+              {{#ifCond @root.session.totalCartDiscount '>' 0}}
+              <li class="d-flex justify-content-between align-items-center"><span class="mr-2">Discount:</span><span
+                  class="text-right font-weight-medium">{{currencySymbol @root.config.currencySymbol}}{{formatAmount
+                  @root.session.totalCartDiscount}}</span>
+              </li>
+              {{/ifCond}}
+            </ul>
+            {{/if}}
+            {{!-- <h3 class="font-weight-normal text-left my-4 py-2"> Total: </h3> --}}
+            <h3 class="font-weight-normal text-center my-4 py-2">
+              {{currencySymbol @root.config.currencySymbol}} <span id="totalAmount"> {{formatAmount
+                @root.session.totalCartAmount}} </span> </h3>
+            <div class="accordion box-shadow-sm mb-4" id="payment-methods">
+              <div class="card">
+                <div class="card-header py-3 px-3">
+                  <div class="radio12">
+                    <input type="radio" class="radiotypepay" name="typepayment" id="cod" {{#unless
+                      @root.session.orderidgenerated}}checked{{/unless}}>
+                    <label for="payment-cash" style="margin-left: 12px;">Cash</label>
+                  </div>
+                  <div class="radio12">
+                    <input type="radio" class="radiotypepay" name="typepayment" id="razorpay" {{#if
+                      @root.session.orderidgenerated}}checked{{/if}}>
+                    <label for="payment-cash" style="margin-left: 12px;">Razor Pay</label>
+
+                  </div>
+                  <p style="margin-left: 20px;font-weight: 600;">Pay through your debit/credit card, Net Banking, Upi or
+                    any digital Payment and get 10% extra discount.</p>
+                </div>
+                <div class="" id="" data-parent="#payment-methods">
+                  <div class="card-body">
+                    <p class="font-size-sm mb-0">You can pay cash when you receive your order.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="pt-2">
+              {{#if @root.razorpayid}}
+              <button id="rzp-button1" class="btn btn-primary">Pay and Place Order</button>
+              <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+              <script>
+                var options = {
+                  "key": "{{@root.keyId}}", // Enter the Key ID generated from the Dashboard
+                  "amount": "{{@root.razoramount}}", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise    
+                  "currency": "INR",
+                  "name": "Book World Jammu",
+                  "description": "Payment Gateway",
+                  "image": "/images/bnb.png",
+                  "order_id": "{{@root.razorpayid}}", //Pass the `id` obtained in the previous step       
+                  "handler": function (response) {
+                    console.log(response);
+                    $.ajax({
+                      method: 'POST',
+                      url: '/checkout/confirm/razorpay',
+                      data: {
+                        razorpay_payment_id: response.razorpay_payment_id,
+                        razorpay_order_id: response.razorpay_order_id,
+                        razorpay_signature: response.razorpay_signature
+                      }
+                    })
+                      .done(function (msg) {
+                        console.log(msg);
+                        window.location = "/payment/" + msg.id;
+                      })
+                      .fail(function (msg) {
+                        console.log(msg);
+                        showNotification(msg.responseJSON.message, 'danger');
+                      });
+                  }
+                };
+                var rzp1 = new Razorpay(options);
+                document.getElementById('rzp-button1').onclick = function (e) {
+                  rzp1.open();
+                  e.preventDefault();
+                }
+              </script>
+              {{else}}
+
+              <div class="cart-btn">
+                <button class="btn btn-primary" type="submit">Place Order</button>
+              </div>
+
+              {{/if}}
+            </div>
+          </div>
+
+        </div>
+    </div>
+    </form>
+    </div>
+  </section>
+</main>
+
+
+<a class="btn-scroll-top" href="#top" data-scroll><span
+    class="btn-scroll-top-tooltip text-muted font-size-sm mr-2">Top</span><i class="btn-scroll-top-icon czi-arrow-up">
+  </i></a>

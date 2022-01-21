@@ -1,0 +1,154 @@
+{{!-- <div class="Wrapper-product">
+<div class="filter">
+<div class="filterinner">
+        <div class="closefilter">
+        <button>Close <i class="fas fa-times"></i></button>
+    </div>
+        <div class="filter-title">
+        <h3>Filter</h3>
+        <button><i class="fas fa-sync-alt"></i> Clear All</button>
+    </div>
+    <div class="price-range filter-com">
+        <h4>Price</h4>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                <div id="slider-range"></div>
+                </div>
+            </div>
+            <div class="row slider-labels">
+                <div class="col-xs-6 caption">
+                <strong>Min:</strong> <span id="slider-range-value1"></span>
+                </div>
+                <div class="col-xs-6 caption">
+                <strong>Max:</strong> <span id="slider-range-value2"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                <form>
+                    <input type="hidden" name="min-value" value="">
+                    <input type="hidden" name="max-value" value="">
+                </form>
+                </div>
+            </div>
+    </div>
+    </div>
+    <div class="filter-stock filter-com">
+        <h4>Stock</h4>
+        <div class="checkinner">
+            <input type="checkbox" name="instock" id="instock">
+            <label for="instock">In Stock</label>
+        </div>
+        <div class="checkinner">
+            <input type="checkbox" name="outstock" id="outstock">
+            <label for="instock">Out of Stock</label>
+        </div>
+    </div>
+     <div class="filter-common filter-com">
+        <h4>Discount</h4>
+        <div class="checkinner">
+            <input type="checkbox" name="instock" id="instock">
+            <label for="instock">5% - 15%</label>
+        </div>
+        <div class="checkinner">
+            <input type="checkbox" name="instock" id="instock">
+            <label for="instock">15% - 25%</label>
+        </div>
+        <div class="checkinner">
+            <input type="checkbox" name="instock" id="instock">
+            <label for="instock">Above 25%</label>
+        </div>
+    </div>
+     <div class="filter-common filter-com">
+        <h4>Pack Size</h4>
+        <div class="checkinner">
+            <input type="checkbox" name="instock" id="instock">
+            <label for="instock">Below 100g</label>
+        </div>
+        <div class="checkinner">
+            <input type="checkbox" name="instock" id="instock">
+            <label for="instock">100g - 500g</label>
+        </div>
+        <div class="checkinner">
+            <input type="checkbox" name="instock" id="instock">
+            <label for="instock">500g - 1000g</label>
+        </div>
+        <div class="checkinner">
+            <input type="checkbox" name="instock" id="instock">
+            <label for="instock">Above 1Kg</label>
+        </div>
+    </div>
+    <div class="filter-common filter-com">
+        <h4>Sort By</h4>
+        <div class="checkinner">
+            <input type="checkbox" name="instock" id="instock">
+            <label for="instock">Most Buy</label>
+        </div>
+        <div class="checkinner">
+            <input type="checkbox" name="instock" id="instock">
+            <label for="instock">New Products</label>
+        </div>
+    </div>
+</div>
+</div> --}}
+<div class="productsWrapper">
+    {{#if filtered}}
+        <div class="product-results col-sm-12">
+                    <div class="dropdown show">
+        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Show
+        </a>
+
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+            <a class="dropdown-item" href="#">10</a>
+            <a class="dropdown-item" href="#">30</a>
+            <a class="dropdown-item" href="#">All</a>
+        </div>
+        </div>
+            {{#ifCond @root.paginateUrl '==' 'category'}}
+            <h1>{{ @root.__ "Category" }} - <strong>{{@root.searchTerm}}</strong></h1>
+            {{else}}
+            <h1>{{ @root.__ "Search results" }} - <strong>{{@root.searchTerm}}</strong></h1>
+            {{/ifCond}}
+        </div>
+    {{/if}}
+    <div class="row product-layout">
+        {{#ifCond results.length '==' 0}}
+            <div class="col-sm-12">
+                <img src="/images/no-product-found.png" alt="No Product Found" class="mx-auto">
+            </div>
+        {{/ifCond}}
+        {{#each products}}
+            <div class="box">
+                <div class="single-product">
+                        <div class="product-wrapper">
+                                <div class="product-thumb">
+                                    {{#if productImage}}
+                                        <img src="{{this.productImage.path}}" alt="...">
+                                    {{else}}
+                                        <img src="/uploads/placeholder.png" alt="...">
+                                    {{/if}}
+                                    <a class="btn-round" data-id="{{this._id}}" data-val ="{{this.productSchool}}" data-link="{{this.productPermalink}}" role="button"><i class="fa fa-shopping-cart"></i></a>
+                                </div>
+                        </div>
+                    <div class="product-title">
+                        <h3>
+                            {{#if productPermalink}}
+                                <a href="/product/{{this.productPermalink}}">{{this.productTitle}}</a>
+                            {{else}}
+                                <a href="/product/{{this._id}}">{{this.productTitle}}</a>             
+                            {{/if}}
+                            </h3>
+                            <p>
+                            {{currencySymbol @root.config.currencySymbol}}{{formatAmount productPrice}}
+                            {{!-- <span>{{currencySymbol @root.config.currencySymbol}}</span> --}}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        {{/each}}
+    </div>
+</div> 
+</div>
+<button class="expand-filter">Filter<i class="fas fa-sort-amount-up-alt"></i></button>

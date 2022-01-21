@@ -1,0 +1,43 @@
+{{> partials/menu}}
+<main role="main" class="ml-sm-auto col-lg-10 px-4">
+	<div class="col-sm-12">
+		<h2>{{ @root.__ "Pincodes" }} <span class="float-right"><a href="/admin/pincode/new"
+					class="btn btn-outline-success">{{ @root.__ "New Pincode" }}</a></span></h2>
+	</div>
+	<div class="col-md-12">
+		{{#if pincodes}}
+		
+			<table class="table table-bordered" style="background-color: #fff;">
+				<thead>
+					<tr>
+						<th>
+							<h5>Pincode</h5>
+						</th>
+						<th>
+							<h5>Delivery Charge</h5>
+						</th>
+						<th>
+							<h5>Action</h5>
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					{{#each pincodes}}
+					<tr>
+						<td class="col-md-4">{{this.pincode}}</td>
+						<td class="col-md-4">{{this.delivery_charge}}</td>
+						<td class="col-md-4">
+							<a href="/admin/pincode/edit/{{this._id}}">{{{feather 'edit'}}}</a>
+							<a href="/admin/pincode/delete/{{this._id}}" class="schoolDelete text-danger" data-id="{{this._id}}">{{{feather
+								'trash-2'}}}</a>
+						</td>
+					</tr>
+					{{/each}}
+				</tbody>
+			</table>
+
+		{{else}}
+		<p>No Pincodes Created Yet</p>
+		{{/if}}
+	</div>
+</main>

@@ -1,0 +1,23 @@
+{{> partials/menu}}
+<main role="main" class="ml-sm-auto col-lg-10 px-4">
+    <div class="col-sm-12">
+        <h2>{{ @root.__ "Schools" }} <span class="float-right"><a href="/admin/school/new" class="btn btn-outline-success">{{ @root.__ "New School" }}</a></span></h2>
+    </div>
+	<div class="col-md-12">
+        {{#if schools}}
+		<ul class="list-group">
+			{{#each schools}}
+				<li class="list-group-item">
+					<strong>{{ @root.__ "Name" }}:</strong> {{this.schoolName}}
+					<span class="float-right">
+							<a href="/admin/school/edit/{{this._id}}">{{{feather 'edit'}}}</a>
+							<a href="#" class="schoolDelete text-danger" data-id="{{this._id}}">{{{feather 'trash-2'}}}</a>
+					</span>
+				</li>
+			{{/each}}
+		</ul>
+        {{else}}
+        <p>No Schools Created Yet</p>
+        {{/if}}
+	</div>
+</main>

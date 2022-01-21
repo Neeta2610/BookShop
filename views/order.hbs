@@ -1,0 +1,248 @@
+{{> partials/menu}}
+<script src="https://raw.githack.com/eKoopmans/html2pdf/master/dist/html2pdf.bundle.js"></script>
+
+<style>
+    .body-main {
+        background: #ffffff;
+        border-bottom: 15px solid #1E1F23;
+        border-top: 15px solid #1E1F23;
+        margin-top: 30px;
+        margin-bottom: 30px;
+        padding: 40px 30px !important;
+        position: relative;
+        box-shadow: 0 1px 21px #808080;
+        font-size: 10px
+    }
+
+    .main thead {
+        background: #1E1F23;
+        color: #fff
+    }
+
+    .img {
+        height: 100px
+    }
+
+    h1 {
+        text-align: center
+    }
+</style>
+<script>
+    function generatePDF() {
+        console.log('================')
+        const element = document.getElementById('invoice-data');
+        element.style.display = "block"
+        html2pdf()
+            .from(element)
+            .save();
+
+    }
+</script>
+<main role="main" class="ml-sm-auto col-lg-10 px-4">
+    <div class="col-sm-12">
+        <h2>View Order</h2>
+    </div>
+    <div class="order-layout col-md-12">
+        <div class="row">
+            <div class="col-md-12 bottom-pad-20">
+                <button id="orderStatusUpdate" class="btn btn-outline-success float-left"
+                    style="border-color: #28a745;">{{ @root.__ "Update status" }}</button>
+                <button onclick="generatePDF()" class="btn btn-outline-success float-left"
+                    style="margin-left: 1em;border-color: #28a745;">Generate Invoice</button>
+                <a href="/admin/orders" class="btn btn-outline-info float-right" style="border-color: #17a2b8;">{{
+                    @root.__ "Go Back" }}</a>
+            </div>
+        </div>
+        <ul class="list-group">
+            <li class="list-group-item list-group-input-pad">
+                <strong> Order status: </strong><span
+                    class="text-{{getStatusColor result.orderStatus}} float-right">{{result.orderStatus}}</span>
+                <div class="float-right col-md-2">
+                    <select class="form-control" id="orderStatus">
+                        <option>{{ @root.__ "Completed" }}</option>
+                        <option>{{ @root.__ "Paid" }}</option>
+                        <option>{{ @root.__ "Pending" }}</option>
+                        <option>{{ @root.__ "Cancelled" }}</option>
+                        <option>{{ @root.__ "Declined" }}</option>
+                        <option>{{ @root.__ "Shipped" }}</option>
+                    </select>
+                </div>
+            </li>
+            <li class="list-group-item"><strong> {{ @root.__ "Order date" }}: </strong><span
+                    class="float-right">{{formatDate result.orderDate "DD/MM/YYYY hh:mmA"}}</span></li>
+            <li class="list-group-item"><strong> {{ @root.__ "Order ID" }}: </strong><span
+                    class="float-right">{{result._id}}</span></li>
+            <li class="list-group-item"><strong> {{ @root.__ "Payment Gateway ref" }}: </strong><span
+                    class="float-right">{{result.orderPaymentId}}</span></li>
+            <li class="list-group-item"><strong> {{ @root.__ "Payment Gateway" }}: </strong><span
+                    class="float-right">{{result.orderPaymentGateway}}</span></li>
+            {{#if result.orderExpectedBtc }}
+            <li class="list-group-item"><strong> {{ @root.__ "Order Expected BTC" }}: </strong><span
+                    class="float-right">{{result.orderExpectedBtc}}</span></li>
+            {{/if}}
+            {{#if result.orderReceivedBtc }}
+            <li class="list-group-item"><strong> {{ @root.__ "Order Received BTC" }}: </strong><span
+                    class="float-right">{{result.orderReceivedBtc}}</span></li>
+            {{/if}}
+            {{#if result.orderBlockonomicsTxid }}
+            <li class="list-group-item"><strong> {{ @root.__ "Order Blockonomics Txid" }}: </strong><span
+                    class="float-right">{{result.orderBlockonomicsTxid}}</span></li>
+            {{/if}}
+            {{#if result.orderPaymentMessage}}
+            <li class="list-group-item"><strong> {{ @root.__ "Payment Message" }}: </strong><span
+                    class="float-right">{{result.orderPaymentMessage}}</span></li>
+            {{/if}}
+            <li class="list-group-item"><strong> {{ @root.__ "Order net amount" }}: </strong><span
+                    class="float-right">{{currencySymbol config.currencySymbol}}{{formatAmount (math result.orderTotal
+                    '-' result.orderShipping)}}</span></li>
+            <li class="list-group-item"><strong> {{ @root.__ "Order shipping amount" }}: </strong><span
+                    class="float-right">{{currencySymbol config.currencySymbol}}{{formatAmount
+                    result.orderShipping}}</span></li>
+            <li class="list-group-item"><strong> {{ @root.__ "Order total amount" }}: </strong><span
+                    class="float-right">{{currencySymbol config.currencySymbol}}{{formatAmount
+                    result.orderTotal}}</span></li>
+            <li class="list-group-item"><strong> {{ @root.__ "Email address" }}: </strong><span
+                    class="float-right">{{result.orderEmail}}</span></li>
+            {{!-- <li class="list-group-item"><strong> {{ @root.__ "Company" }}: </strong><span
+                    class="float-right">{{result.orderCompany}}</span></li> --}}
+            <li class="list-group-item"><strong> {{ @root.__ "Name" }}: </strong><span
+                    class="float-right">{{result.orderFirstname}} {{result.orderLastname}}</span></li>
+            {{!-- <li class="list-group-item"><strong> {{ @root.__ "Last name" }}: </strong><span
+                    class="float-right">{{result.orderLastname}}</span></li> --}}
+            <li class="list-group-item"><strong> {{ @root.__ "Address" }}: </strong><span
+                    class="float-right">{{result.orderAddr1}}, {{result.orderState}}, {{result.orderPostcode}}</span>
+            </li>
+            {{!-- <li class="list-group-item"><strong> {{ @root.__ "Address 2" }}: </strong><span
+                    class="float-right">{{result.orderAddr2}}</span></li> --}}
+            {{!-- <li class="list-group-item"><strong> {{ @root.__ "Country" }}: </strong><span
+                    class="float-right">{{result.orderCountry}}</span></li> --}}
+            {{!-- <li class="list-group-item"><strong> {{ @root.__ "State" }}: </strong><span
+                    class="float-right">{{result.orderState}}</span></li> --}}
+            {{!-- <li class="list-group-item"><strong> {{ @root.__ "Postcode" }}: </strong><span
+                    class="float-right">{{result.orderPostcode}}</span></li> --}}
+            <li class="list-group-item"><strong> {{ @root.__ "Phone number" }}: </strong><span
+                    class="float-right">{{result.orderPhoneNumber}}</span></li>
+            <li class="list-group-item"><strong> {{ @root.__ "Order type" }}: </strong><span
+                    class="float-right">{{result.orderType}}</span></li>
+            <li class="list-group-item"><strong> {{ @root.__ "Order comment" }}: </strong><span
+                    class="float-right">{{result.orderComment}}</span></li>
+
+            <li class="list-group-item">&nbsp;</li>
+            <li class="list-group-item"><strong class="text-info">{{ @root.__ "Products ordered" }}</strong></li>
+            {{#each result.orderProducts}}
+            <li class="list-group-item">
+                {{this.quantity}} x {{this.title}}
+                {{#if this.variantId}}
+                &nbsp; > &nbsp;
+                <span class="text-warning"> {{ @root.__ "Options" }}: </span>
+                {{this.variantTitle}}
+                {{/if}}
+                <div class="float-right">{{currencySymbol @root.config.currencySymbol}}{{formatAmount
+                    this.totalItemPrice}}</div>
+                {{#if productComment}}
+                <h4><span class="text-danger">Comment:</span> {{this.productComment}}</h4>
+                {{/if}}
+            </li>
+            {{/each}}
+        </ul>
+        <input type="hidden" id="order_id" value="{{result._id}}">
+    </div>
+
+</main>
+
+<div class="container" style="display: none;" id="main-container">
+    <div class="container" id="invoice-data">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3 body-main">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-4 text-left" style="margin-left: -5em;
+    font-weight: 800 !important;">
+                            <h4 style="color: #A52A2A;">Book World <br>
+                                Jammu </h4>
+                        </div>
+                        <div aclass="col-md-8 text-right">
+                            {{!-- <h4><strong>Book World Jammu</strong></h4> --}}
+                            <p>{{result.orderFirstname}} {{result.orderLastname}}</p>
+                            <p> {{result.orderAddr1}}, {{result.orderState}},</p>
+                            <p>{{result.orderPostcode}}</p>
+                            <p> {{result.orderEmail}}</p>
+
+                        </div>
+                    </div> <br />
+                    <div class="row">
+                        <div class="col-md-12 text-center">
+                            <h2>INVOICE</h2>
+                            <h5>{{result.orderBlockonomicsTxid}}</h5>
+                        </div>
+                    </div> <br />
+                    <div>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        <h5>Description</h5>
+                                    </th>
+                                    <th>
+                                        <h5>Quantity</h5>
+                                    </th>
+                                    <th>
+                                        <h5>Amount</h5>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {{#each result.orderProducts}}
+                                <tr>
+                                    <td class="col-md-6">{{this.title}}</td>
+                                    <td class="col-md-3">{{this.quantity}}</td>
+                                    <td class="col-md-3"><i class="fas fa-rupee-sign"
+                                            area-hidden="true"></i>{{currencySymbol
+                                        @root.config.currencySymbol}}{{formatAmount this.totalItemPrice}}</td>
+                                </tr>
+                                {{/each}}
+
+                                <tr>
+                                    <td class="text-right">
+                                        <p> <strong>Shipment and Taxes:</strong> </p>
+                                        <p> <strong>Total Amount: </strong> </p>
+                                        {{!-- <p> <strong>Discount: </strong> </p> --}}
+                                        <p> <strong>Payable Amount: </strong> </p>
+                                    </td>
+                                    <td>
+                                        <p> <strong><i class="fas fa-rupee-sign" area-hidden="true"></i>{{currencySymbol
+                                                config.currencySymbol}}{{formatAmount result.orderShipping}}</strong>
+                                        </p>
+                                        <p> <strong><i class="fas fa-rupee-sign" area-hidden="true"></i>
+                                                {{currencySymbol @root.config.currencySymbol}}{{formatAmount
+                                                this.totalItemPrice}} </strong> </p>
+                                        {{!-- <p> <strong><i class="fas fa-rupee-sign" area-hidden="true"></i> 3,000
+                                            </strong> </p> --}}
+                                        <p> <strong><i class="fas fa-rupee-sign" area-hidden="true"></i>
+                                                {{currencySymbol config.currencySymbol}}{{formatAmount
+                                                result.orderTotal}}</strong> </p>
+                                    </td>
+                                </tr>
+                                <tr style="color: #F81D2D;">
+                                    <td class="text-right">
+                                        <h4><strong>Total:</strong></h4>
+                                    </td>
+                                    <td class="text-left">
+                                        <h4><strong>{{currencySymbol config.currencySymbol}}{{formatAmount
+                                                result.orderTotal}}</strong></h4>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                        <div class="col-md-12">
+                            <p><b>Date :</b> {{formatDate result.orderDate "DD/MM/YYYY hh:mmA"}}</p> <br />
+                            {{!-- <p><b>Signature</b></p> --}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

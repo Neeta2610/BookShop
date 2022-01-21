@@ -1,0 +1,21 @@
+{{> partials/menu}}
+<main role="main" class="ml-sm-auto col-lg-10 px-4">
+	<div class="col-12">
+		<div class="page-header">
+			<div class="float-right">
+				<button type="submit" id="btnPincodeAdd" class="btn btn-outline-success">{{ @root.__ "Create" }}</button>
+			</div>
+			<h2>{{ @root.__ "New Pincode" }}</h2>
+		</div>
+		<form id="pincodeNewForm" data-toggle="validator" autocomplete="off" >
+			<div class="form-group">
+				<label>{{ @root.__ "Pincode" }} *</label>
+				<input type="text" class="form-control" id="pincode" value="{{user.pincode}}" required>
+			</div>
+			<div class="form-group">
+				<label>{{ @root.__ "Delivery Charge" }} *</label>
+				<input type="text" class="form-control" id="delivery_charge" value="{{user.delivery_charge}}" required>
+			</div>
+		</form>
+	</div>
+</main>

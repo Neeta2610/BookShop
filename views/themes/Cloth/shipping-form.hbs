@@ -1,0 +1,24 @@
+<div class="container doubleHeight">
+    <input type="text" class="container__input customerDetails" id="shipAddr1" name="shipAddr1" placeholder="Address 1"
+        value="{{@root.session.customerAddress1}}" required>
+    <label id="userLabel" for="address" class="container__label">Address</label></div>
+
+<div class="container">
+    <input type="text" class="container__input customerDetails" id="shipState" name="shipState" placeholder="State"
+        value="{{@root.session.customerState}}" required>
+    <label id="userLabel" for="state" class="container__label">State</label></div>
+
+<div class="container">
+    <input type="text" class="container__input customerDetails" id="shipCountry" name="shipCountry" placeholder="India"
+        value="{{@root.session.customerCountry}}" required>
+    <label id="userLabel" for="country" class="container__label">Country</label></div>
+
+<div class="container">
+    <input type="text" class="container__input customerDetails" id="shipPostcode" name="shipPostcode"
+        placeholder="Pin code" value="{{@root.session.customerPostcode}}" required>
+    <label id="userLabel" for="pinCode" class="container__label">Pin Code</label></div>
+
+<div class="container">
+    <input type="number" class="container__input customerDetails" id="shipPhoneNumber"
+        name="shipPhoneNumber" placeholder="Phone number" value="{{@root.session.customerPhone}}" required>
+    <label id="userLabel" for="mobile" class="container__label">Mobile</label></div>

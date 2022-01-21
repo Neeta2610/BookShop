@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {{~#if config.injectJs}}{{{config.injectJs}}}{{/if}}
+    <title>{{title}}</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    {{#if admin}}
+    <link rel="icon" type="image/png" href="/favicon1.png" />
+    <!--[if IE]><link rel="SHORTCUT ICON" href="/images/favicon.png"/><![endif]-->
+    {{else}}
+    <link rel="icon" type="image/png" href="/favicon1.png" />
+    <!--[if IE]><link rel="SHORTCUT ICON" href="/favicon.ico"/><![endif]-->
+    {{/if}}
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    {{#if productDescription}}
+    <meta name="description" content="{{snip productDescription}}">
+    {{else}}
+    {{#if metaDescription}}
+    <meta name="description" content="{{snip metaDescription}}">
+    {{else}}
+    <meta name="description" content="{{snip config.cartDescription}}">
+    {{/if}}
+    {{/if}}
+    <meta name="csrfToken" content="{{csrfToken}}">
+    <meta name="keywords" content="{{config.cartTitle}}">
+    <!-- CSS only -->
+    {{!--
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    --}}
+    <link rel="stylesheet" href="/stylesheets/bootstrap.css">
+    {{!-- for publication slider --}}
+    <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css">
+    <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css">
+    <link rel="stylesheet" type="text/css"
+        href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    {{!-- end --}}
+    <!-- JS, Popper.js, and jQuery -->
+    <link rel="stylesheet" href="/stylesheets/pushy{{config.env}}.css">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">
+    {{#if admin}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/gijgo/1.9.13/combined/css/gijgo.min.css"
+        integrity="sha256-bH0WSMuCFoG/dxeox/5aOWmaZl729yDg4ylckwSRTfU=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.20.2/codemirror.min.css"
+        integrity="sha256-MdzaXfGXzZdeHw/XEV2LNNycipsLk4uZ0FYzO3hbuvI=" crossorigin="anonymous" />
+    {{/if}}
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tokenfield/0.12.0/css/bootstrap-tokenfield.min.css"
+        integrity="sha256-4qBzeX420hElp9/FzsuqUNqVobcClz1BjnXoxUDSYQ0=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="/stylesheets/codemirror-style.min.css">
+    <link rel="stylesheet" href="/stylesheets/etalage.css">
+
+
+
+    <link rel="stylesheet" href="/stylesheets/style{{config.env}}.css">
+    {{#if admin}}
+    <link rel="stylesheet" href="/stylesheets/admin{{config.env}}.css">
+    {{/if}}
+    <link rel="stylesheet" href="/stylesheets/owl.carousel.min.css">
+    {{!--
+    <link rel="stylesheet" href="/stylesheets/vendor.css"> --}}
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    {{!--
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script> --}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+        </script>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.14/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="https://kit.fontawesome.com/da9abaff04.js" crossorigin="anonymous"></script>
+    {{!--
+    <script src="/javascripts/fontawesome.js"></script> --}}
+    <script src="/javascripts/bootstrap.js"></script>
+    {{!--
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+        crossorigin="anonymous"></script> --}}
+    {{#if admin}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"
+        integrity="sha256-4iQZ6BVL4qNKlQ27TExEhBN1HFPvAvAMbFavKKosSWQ=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gijgo/1.9.13/combined/js/gijgo.min.js"
+        integrity="sha256-YZhUu69bCn9uTqQyKwwQ3GyRypS7eaxp/wmVS282sDI=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.20.2/codemirror.min.js"
+        integrity="sha256-K1exjHe1X4MP24jRizgBaSbUDUrNhFDRSwGoEYGmtJE=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.20.2/mode/css/css.min.js"
+        integrity="sha256-D5oJ11cOmRhXSYWELwG2U/XYH3YveZJr9taRYLZ2DSM=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.20.2/mode/xml/xml.min.js"
+        integrity="sha256-ERFGS58tayDq5kkyNwd/89iZZ+HglMH7eYXxG1hxTvA=" crossorigin="anonymous"></script>
+    {{/if}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.25.0/feather.min.js"
+        integrity="sha256-NvgyqkM9Vu1DLHkzxTxXQxZNdDymUlwhXcSJEqUfPiU=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"
+        integrity="sha256-LlHVI5rUauudM5ZcZaD6hHPHKrA7CSefHHnKgq+/AZc=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.7/js/tether.min.js"
+        integrity="sha256-4lietOiwRDBKx1goZZbRiwB06L+/bPYEGDIKZt82bgg=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.9/validator.min.js"></script>
+    <script src="/javascripts/jquery.bootpag.min.js"></script>
+    <script src="/javascripts/cssbeautify.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.touchswipe/1.6.4/jquery.touchSwipe.min.js"></script>
+    <script src="/javascripts/jquery.etalage.min.js"></script>
+    <script src="/javascripts/index.js"></script>
+    <script src="/javascripts/common.js"></script>
+    <script src="/javascripts/expressCart.js"></script>
+    {{#if admin}}
+    <script src="/javascripts/admin.js"></script>
+    {{/if}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tokenfield/0.12.0/bootstrap-tokenfield.min.js"
+        integrity="sha256-jdwX0QzXB7z7Xc7Vz0ovtIHWO5qIZWg0aLcGv44JDgE=" crossorigin="anonymous"></script>
+    <!-- SEO data -->
+    {{#if pageUrl}}
+    <link rel="canonical" href="{{pageUrl}}" />
+    {{else}}
+    <link rel="canonical" href="{{config.baseUrl}}" />
+    {{/if}}
+    <meta name="referrer" content="origin" />
+    {{#if @root.config.facebookAppId}}
+    <meta property="fb:app_id" content="{{@root.config.facebookAppId}}" />
+    {{/if}}
+    <meta property="og:site_name" content="{{config.cartTitle}}" />
+    {{#if result.productTitle}}
+    <meta property="og:type" content="product" />
+    {{else}}
+    <meta property="og:type" content="website" />
+    {{/if}}
+    <meta property="og:title" content="{{title}}" />
+    {{#if pageUrl}}
+    <meta property="og:url" content="{{pageUrl}}" />
+    {{else}}
+    <meta property="og:url" content="{{config.baseUrl}}" />
+    {{/if}}
+    {{#if result.productImage}}
+    <meta property="og:image" content="{{config.baseUrl}}{{result.productImage}}" />
+    {{/if}}
+    {{#if productDescription}}
+    <meta property="og:description" content="{{snip productDescription}}">
+    {{else}}
+    {{#if metaDescription}}
+    <meta property="og:description" content="{{snip metaDescription}}">
+    {{else}}
+    <meta property="og:description" content="{{snip config.cartDescription}}">
+    {{/if}}
+    {{/if}}
+    {{#if @root.config.twitterHandle}}
+    <meta property="twitter:site" content="{{@root.config.twitterHandle}}">
+    {{/if}}
+    {{#if result.productTitle}}
+    <meta property="twitter:card" content="product" />
+    {{else}}
+    <meta property="twitter:card" content="summary" />
+    {{/if}}
+    <meta property="twitter:title" content="{{title}}" />
+    {{#if pageUrl}}
+    <meta property="twitter:url" content="{{pageUrl}}" />
+    {{else}}
+    <meta property="twitter:url" content="{{config.baseUrl}}" />
+    {{/if}}
+    {{#if admin}}
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+    {{/if}}
+    {{#unless result.productTitle}}
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org/",
+            {
+                {
+                    #
+                    if result.productTitle
+                }
+            }
+            "@type": "Product",
+            "name": "{{result.productTitle}}",
+            "offers": {
+                "price": "{{result.productPrice}}",
+                "priceCurrency": "{{config.currencyISO}}",
+                "description": "{{snip productDescription}}",
+                "sku": "{{result._id}}",
+                "url": "{{pageUrl}}"
+            },
+            {
+                {
+                    else
+                }
+            }
+            "publisher": "{{config.cartTitle}}",
+            "@type": "WebSite",
+            {
+                {
+                    /if}} { {#
+                    if result.productImage
+                }
+            }
+            "image": "{{config.baseUrl}}{{result.productImage}}",
+            {
+                {
+                    /if}} { {#
+                    if productDescription
+                }
+            }
+            "description": "{{snip productDescription}}",
+            {
+                {
+                    /if}} { {#
+                    if result.productTitle
+                }
+            }
+            "sku": "{{result._id}}",
+            {
+                {
+                    /if}} { {#
+                    if pageUrl
+                }
+            }
+            "url": "{{pageUrl}}" {
+                {
+                    else
+                }
+            }
+            "url": "{{config.baseUrl}}" {
+                    {
+                        /if}}
+                    }
+    </script>
+    {{/unless}}
+    <!-- SEO data -->
+    {{~#if config.googleAnalytics}}{{{config.googleAnalytics}}}{{/if}}
+    {{~#if config.customCss}}<style>
+        {
+                {
+                    {
+                    config.customCss
+                }
+            }
+        }
+    </style>{{/if}}
+    {{#if admin}}
+    <link rel="stylesheet" href="/stylesheets/admin{{config.env}}.css">
+    {{else}}
+    {{#if config.theme}}
+    <link rel="stylesheet" href="/{{config.theme}}/style{{config.env}}.css">
+    <script src="/{{config.theme}}/index{{config.env}}.js"></script>
+    {{/if}}
+    {{/if}}
+</head>
+{{#if admin}}
+
+<body class="admin">
+    {{else}}
+
+    <body>
+        {{/if}}
+        {{#unless admin}}
+        <!-- Sign in / sign up modal-->
+        <div class="modal fade" id="signin-modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <ul class="nav nav-tabs card-header-tabs" style="margin-left: 0px;" role="tablist">
+                            <li class="nav-item"><a class="nav-link active" href="#signin-tab" data-toggle="tab"
+                                    role="tab" aria-selected="true"><i class="czi-unlocked mr-2 mt-n1"></i>Sign in</a>
+                            </li>
+                            <li class="nav-item"><a class="nav-link" href="#signup-tab" data-toggle="tab" role="tab"
+                                    aria-selected="false"><i class="czi-user mr-2 mt-n1"></i>Sign up</a></li>
+
+                        </ul>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                    </div>
+                    <div class="modal-body tab-content py-4">
+                        <form class="needs-validation tab-pane fade show active" autocomplete="off" novalidate
+                            id="signin-tab">
+                            <div class="form-group">
+                                <label for="si-email">Phone Number</label>
+                                <input class="form-control" type="phone" id="ShipPhoneNumber" name="ShipPhoneNumber"
+                                    placeholder="" required>
+                                <div class="invalid-feedback">Please provide a valid Phone Number.</div>
+                            </div>
+                            <div class="form-group">
+                                <label for="si-password">Password</label>
+                                <div class="password-toggle">
+                                    <input class="form-control" type="password" id="password" name="password" required>
+                                    <label class="password-toggle-btn">
+                                        <input class="custom-control-input password-show" type="checkbox"><i
+                                            class="czi-eye password-toggle-indicator"></i><span class="sr-only">Show
+                                            password</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group d-flex flex-wrap justify-content-between">
+                                <div class="custom-control custom-checkbox mb-2">
+                                    <input class="custom-control-input" type="checkbox" id="si-remember">
+                                    <label class="custom-control-label" for="si-remember">Remember me</label>
+                                </div><a class="font-size-sm" href="/customer/forgot-password">Forgot password?</a>
+                            </div>
+                            <button class="btn btn-primary btn-block btn-shadow" id="customerloginForm"
+                                type="submit">Sign in</button>
+                        </form>
+                        <form action="/customer/register" method="POST" class="needs-validation tab-pane fade"
+                            autocomplete="off" novalidate id="signup-tab">
+                            <div class="form-group">
+                                <label for="si-email">Phone Number</label>
+                                <input class="form-control" type="number" id="shipPhoneNumber" name="shipPhoneNumber"
+                                    placeholder="" required>
+                                <div class="invalid-feedback">Please provide a valid Phone Number.</div>
+                            </div>
+                            <div class="form-group">
+                                <label for="si-password">Password</label>
+                                <div class="password-toggle">
+                                    <input class="form-control" type="password" id="password" name="password" required>
+                                    <label class="password-toggle-btn">
+                                        <input class="custom-control-input password-show" type="checkbox"><i
+                                            class="czi-eye password-toggle-indicator"></i><span class="sr-only">Show
+                                            password</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <button class="btn btn-primary btn-block btn-shadow" type="submit">Sign Up</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <header class="box-shadow-sm fixed-top" id="top">
+            <div class="bg-light">
+                <div class="navbar navbar-expand-lg navbar-light">
+                    <div class="container">
+                        {{!-- <a class="navbar-brand d-none d-sm-block mr-3 flex-shrink-0" href="/"
+                            style="max-width:100px; margin-top: -7px;"><img width="142" height="500"
+                                src="/images/bwlogo1.png" alt="Cartzilla" />
+                        </a><a class="navbar-brand d-sm-none mr-2" href="/"
+                            style="max-width:100px; margin-top: -7px;"><img width="55" src="/images/bwlogo1.png"
+                                alt="Cartzilla" />
+                        </a> --}}
+
+                        {{!-- <a class="navbar-brand" rel="home" href="/"><span
+                                style="font-family:Times ;font-weight:700; font-size:40px; color: #A52A2A;">Book World
+                                Jammu</span></a>
+                        <img id="logo" src="/favicon1.png" alt="Cartzilla"> --}}
+                        {{!-- <a class="navbar-brand d-none d-sm-block mr-3 flex-shrink-0" href="/"
+                            style="min-width: 7rem;"><img width="142" src="/images/bwlogo1.png" alt="Cartzilla" />
+                        </a>
+                        <a class="navbar-brand d-sm-none mr-2" href="/" style="min-width: 4.625rem;"><img width="55"
+                                src="/images/bwlogo1.png" alt="Cartzilla" />
+                        </a> --}}
+                        <a class="navbar-brand d-none d-sm-block mr-3 flex-shrink-0" href="/"
+                            style="font-size:25px; color:#A52A2A;  font-family: Arial, Helvetica, sans-serif ;">Book
+                            World Jammu
+                        </a>
+                        <a class="navbar-brand d-sm-none mr-2" href="/"
+                            style="min-width: 4.625rem;color:#A52A2A;  font-family: Arial, Helvetica, sans-serif ;">Book
+                            World Jammu
+                        </a>
+                        <form class="input-group-overlay d-none d-lg-flex mx-4">
+                            <input class="form-control appended-form-control" name="frm_search" id="frm_search"
+                                type="search" aria-label="Search" placeholder="Search for products">
+                            <button class="input-group-append-overlay search-button" id="btn_search" type="submit"><span
+                                    class="input-group-text"><i class="czi-search"></i></span></button>
+                        </form>
+                        {{!-- <div class="input-group">
+                            <input class="form-control" placeholder="{{ @root.__ " Search shop" }}">
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-success">{{ @root.__ "Search" }}</button>
+                            </div>
+                        </div> --}}
+                        <div class="navbar-toolbar d-flex flex-shrink-0 align-items-center">
+                            <button class="navbar-toggler" type="button" data-toggle="collapse"
+                                data-target="#navbarCollapse"><span class="navbar-toggler-icon"></span></button><a
+                                class="navbar-tool navbar-stuck-toggler" href="#"><span
+                                    class="navbar-tool-tooltip">Expand menu</span>
+                                <div class="navbar-tool-icon-box"><i class="navbar-tool-icon czi-menu"></i></div>
+                            </a><a class="navbar-tool d-none d-lg-flex" href="account-wishlist.html"><span
+                                    class="navbar-tool-tooltip">Wishlist</span>
+                                <div class="navbar-tool-icon-box"><i class="navbar-tool-icon czi-heart"></i></div>
+                            </a>
+                            {{#if @root.session.customerPresent}}
+                            <div class="dropdown ml-1 ml-lg-0 mr-n1 mr-lg-2">
+                                <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="navbar-tool-icon czi-user"></i>
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <li><a class="dropdown-item" href="/customer/account">Account</a></li>
+                                    <li><a class="dropdown-item" href="/checkout/cart">Cart</a></li>
+                                    <li><a class="dropdown-item" href="/customer/logout">Logout</a></li>
+                                </div>
+                            </div>
+                            {{else}}
+                            <a class="navbar-tool ml-1 ml-lg-0 mr-n1 mr-lg-2" href="#signin-modal" data-toggle="modal">
+                                <div class="navbar-tool-icon-box"><i class="navbar-tool-icon czi-user"></i></div>
+                                <div class="navbar-tool-text ml-n3"><small>Hello, Sign in</small>My Account</div>
+                            </a>
+                            {{/if}}
+
+                            {{!-- Cart Starts here --}}
+                            <div class="navbar-tool dropdown ml-3">
+                                {{#if @root.session.cart}}
+                                <a class="navbar-tool-icon-box bg-secondary dropdown-toggle" href="/checkout/cart">
+                                    <span class="navbar-tool-label"
+                                        id="cart-count">{{@root.session.totalCartItems}}</span>
+                                    <i class="navbar-tool-icon czi-cart"></i>
+                                </a>
+                                <a class="navbar-tool-text" href="/checkout/cart"><small>My
+                                        Cart</small>{{currencySymbol config.currencySymbol}}{{formatAmount
+                                    @root.session.totalCartAmount}}</a>
+                                {{else}}
+                                <a class="navbar-tool-icon-box bg-secondary dropdown-toggle" href="/checkout/cart">
+                                    <span class="navbar-tool-label" id="cart-count">0</span>
+                                    <i class="navbar-tool-icon czi-cart"></i>
+                                </a>
+                                <a class="navbar-tool-text" href="/checkout/cart"><small>My
+                                        Cart</small>{{currencySymbol @root.config.currencySymbol}}0</a>
+                                {{/if}}
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="navbar navbar-expand-lg navbar-light navbar-stuck-menu mt-n2 pt-0 pb-2">
+                    <div class="container">
+                        <div class="collapse navbar-collapse" id="navbarCollapse">
+                            <!-- Search-->
+                            <div class="input-group-overlay d-lg-none my-3">
+                                <div class="input-group-prepend-overlay search"><span class="input-group-text"><i
+                                            class="czi-search"></i></span></div>
+                                <input class="form-control prepended-form-control" type="search"
+                                    placeholder="Search for products" aria-label="Search">
+                            </div>
+
+                            <!-- Primary menu-->
+                            <ul class="navbar-nav mx-auto" style="display: contents;">
+                                <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#"
+                                        data-toggle="dropdown"><i class="fa fa-graduation-cap"
+                                            aria-hidden="true" style="margin-right: 5px;"></i>School</a>
+                                    <div class="dropdown-menu p-0">
+                                        <div class="d-flex flex-wrap flex-md-nowrap px-2">
+                                            <div class="mega-dropdown-column py-4 px-3">
+                                                <div class="widget widget-links mb-3">
+                                                    <ul class="widget-list">
+                                                        {{#each schools}}
+                                                        <li class="widget-list-item pb-1"><a class="widget-list-link"
+                                                                href="/school/{{this._id}}">{{this.schoolName}}</a>
+                                                        </li>
+                                                        {{/each}}
+                                                    </ul>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </li>
+
+
+                                {{!-- <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#"
+                                        data-toggle="dropdown">NCERT Books</a>
+
+                                </li> --}}
+
+                                <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#"
+                                        data-toggle="dropdown"><i class="fa fa-scissors" style="margin-right: 5px;"
+                                            aria-hidden="true"></i>Stationary Items</a>
+
+                                </li>
+
+                                <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#"
+                                        data-toggle="dropdown"><i class="fa fa-book" style="margin-right: 5px;"
+                                            aria-hidden="true"></i>Notebooks</a>
+
+                                </li>
+
+                                <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#"
+                                        data-toggle="dropdown"><i class="fa fa-info" aria-hidden="true" style="margin-right: 5px;"></i>Information
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li class="dropdown position-static mb-0"><a
+                                                class="dropdown-item py-2 border-bottom" href="/customer/contact"><span
+                                                    class="d-block text-heading">Contact Us</span></a>
+
+                                        </li>
+                                        <li class="dropdown position-static mb-0"><a
+                                                class="dropdown-item py-2 border-bottom" href="/customer/privacy"><span
+                                                    class="d-block text-heading">Privacy Policy</span></a>
+
+                                        </li>
+                                        <li class="dropdown position-static mb-0"><a
+                                                class="dropdown-item py-2 border-bottom" href="/customer/delivery"><span
+                                                    class="d-block text-heading">Delivery Information</span></a>
+
+                                        </li>
+                                        <li class="dropdown position-static mb-0"><a
+                                                class="dropdown-item py-2 border-bottom" href="/customer/terms"><span
+                                                    class="d-block text-heading">Terms &amp; Conditions</span></a>
+
+                                        </li>
+
+
+                                    </ul>
+                                </li>
+
+
+
+
+                            </ul>
+                            </li>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        </div>
+        {{/unless}}
+        <div class="site-overlay"></div>
+
+        {{!-- Full Cart Page --}}
+        {{#unless admin}}
+        {{#ifCond page '!=' 'checkout'}}
+        {{#ifCond page '!=' 'pay'}}
+        <div id="cart" class="col-md-12 pad-left-12 pushy pushy-right">
+            <div class="row {{checkout}} back-checkout">
+                <div class="col-sm-12">
+                    <button class="pushy-link" type="button"><i class="fas fa-chevron-left"></i> Back to
+                        Grocery</button>
+                </div>
+            </div>
+            <div class="row">
+                <div id="cart" class="col-md-12">
+                    {{> (getTheme 'cart')}}
+                    <div class="row">
+                        <div id="cart" class="col-md-12">
+                            {{> (getTheme 'cart')}}
+                            <div class="row">
+                                <div class="col-sm-12 {{showCartButtons @root.session.cart}} bottom-marg-25">
+                                    <button class="btn btn-danger float-left" id="empty-cart" type="button">{{ @root.__
+                                        "Empty cart" }}</button>
+                                    <a href="/checkout/information"
+                                        class="btn btn-primary float-right btn-checkout">Checkout</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{/ifCond}}
+        {{/ifCond}}
+        {{/unless}}
+        {{#if admin}}
+        <div class="container-fluid h-100" id="container">
+            <div class="row">
+                {{{body}}}
+            </div>
+        </div>
+        {{else}}
+        <div class="nav-top container-fluid h-100" id="container">
+            <div class="row">
+                {{{body}}}
+            </div>
+        </div>
+        {{/if}}
+        <input type="hidden" id="input_notify_message" value="{{message}}">
+        <input type="hidden" id="input_notify_messageType" value="{{messageType}}">
+        <input type="hidden" id="cartCheckout" value="{{checkout}}">
+        <input type="hidden" id="cartTheme" value="{{@root.config.theme}}">
+        <input type="hidden" id="currencySymbol" value="{{@root.config.currencySymbol}}">
+        {{#if @root.config.maxQuantity}} <input type="hidden" id="maxQuantity"
+            value="{{@root.config.maxQuantity}}">{{/if}}
+        <div id="notify_message"></div>
+        {{#if showFooter}}
+        <div class="footer">
+            <div class="upper-footer">
+                <div class="contactus navbar-expContact and-lg">
+                    <h3>Contact Us
+                        <hr>
+                    </h3>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#address"
+                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <i class="far fa-plus-square"></i>
+                    </button>
+                    <ul class="collapse navbar-collapse" id="address">
+                        <li><i class="fas fa-street-view"></i> Shop No. 6, Opposite Presentation Convent School, Army
+                            Gate, Gandhi Nagar, Jammu - 180004</li>
+                        <li><i class="fas fa-envelope"></i> info@bookworldjammu.com</li>
+                        <li><i class="fas fa-phone"></i>+919796484545</li>
+                    </ul>
+                </div>
+                <div class="extra navbar-expand-lg">
+                    <h3>Extra
+                        <hr>
+                    </h3>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#extras"
+                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <i class="far fa-plus-square"></i>
+                    </button>
+                    <ul class="collapse navbar-collapse" id="extras">
+                        {{!-- <li><a href="/customer/aboutus">About Us</a></li> --}}
+                        <li><a href="/customer/contact">Contact Us</a></li>
+                        <li><a href="/customer/privacy">Privacy Policy</a></li>
+                        <li><a href="/customer/delivery">Delivery Information</a></li>
+                        <li><a href="/customer/terms">Terms & Conditions</a></li>
+                    </ul>
+                </div>
+                <div class="Account navbar-expand-lg">
+                    <h3>Account
+                        <hr>
+                    </h3>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#myaccount"
+                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <i class="far fa-plus-square"></i>
+                    </button>
+                    <ul class="collapse navbar-collapse" id="myaccount">
+                        <li><a href="/customer/account">My Account</a></li>
+                        <li><a href="/checkout/cart">Cart</a></li>
+                        <li><a href="/customer/account">Order History</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="lower-footer">
+                <ul>
+                    <li><a href=""><i class="fab fa-facebook-square"></i></a></li>
+                    <li><a href=""><i class="fab fa-twitter-square"></i></a></li>
+                    <li><a href=""><i class="fab fa-instagram-square"></i></a></li>
+                    <li><a href=""><i class="fab fa-linkedin"></i></a></li>
+                </ul>
+            </div>
+            <div class="most-lower">
+                <h5>Designed by <a href="https://www.ansgenix.in/">ANS Genix IT Solutions</a> © 2021</h5>
+                {{!-- <a href="#top"><i class="fas fa-caret-up"></i></a> --}}
+            </div>
+        </div>
+
+        </div>
+        {{/if}}
+        {{!-- <div class="footericon">
+            <ul>
+                <li><a href="/"><i class="fas fa-home"></i></a></li>
+                <li><a href="/checkout/cart"><i class="fas fa-shopping-cart"></i></a></li>
+                <li><a href="/customer/account"><i class="fas fa-user"></i></a></li>
+            </ul>
+        </div> --}}
+        <div class="cz-handheld-toolbar">
+            <div class="d-table table-fixed w-100"><a class="d-table-cell cz-handheld-toolbar-item" href="/"><span
+                        class="cz-handheld-toolbar-icon"><i class="czi-home"></i></span><span
+                        class="cz-handheld-toolbar-label">Home</span></a><a
+                    class="d-table-cell cz-handheld-toolbar-item" href="/customer/account" data-toggle="collapse"
+                    onclick="window.scrollTo(0, 0)"><span class="cz-handheld-toolbar-icon"><i
+                            class="czi-user"></i></span><span class="cz-handheld-toolbar-label">Account</span></a><a
+                    class="d-table-cell cz-handheld-toolbar-item" href="/checkout/cart"><span
+                        class="cz-handheld-toolbar-icon"><i class="czi-cart"></i><span
+                            class="badge badge-primary badge-pill ml-1">{{@root.session.totalCartItems}}</span></span><span
+                        class="cz-handheld-toolbar-label">{{currencySymbol @root.config.currencySymbol}}{{formatAmount
+                        @root.session.totalCartAmount}}</span></a>
+            </div>
+        </div>
+        <script src="/javascripts/pushy.min.js"></script>
+        <script src="/javascripts/owl.carousel.min.js"></script>
+        {{#if admin}}
+        {{> partials/globalSearchModal}}
+        {{> partials/validationModal}}
+        {{> partials/variantModal}}
+        {{> partials/variantEditModal}}
+        {{/if}}
+        {{> partials/confirmModal}}
+        <script>
+            feather.replace();
+        </script>
+        <script type="text/javascript">
+            $('.owl-carousel').owlCarousel({
+                loop: false,
+                margin: 10,
+                nav: false,
+                dots: false,
+                autoplay: true,
+                autoplayTimeout: 10000,
+                stagepadding: 50,
+                responsive: {
+                    0: {
+                        items: 1
+                    },
+                    450: {
+                        items: 2
+                    },
+                    600: {
+                        items: 3
+                    },
+                    1000: {
+                        items: 4
+                    }, 1300: {
+                        items: 5
+                    }
+                }
+            })
+        </script>
+        {{!--
+        <script>
+
+            $('.parent-box owl-carousel').owlCarousel({
+                loop: true,
+                margin: 10,
+                responsiveClass: true,
+                rewind: true,
+                autoWidth: true,
+                responsive: {
+                    0: {
+                        items: 1,
+                        nav: false
+                    },
+                    450: {
+                        items: 2,
+                        nav: false
+                    },
+                    700: {
+                        items: 3,
+                        nav: true
+                    },
+                    1000: {
+                        items: 4,
+                        nav: true,
+                        loop: false
+                    },
+                    1300: {
+                        items: 5,
+                        nav: true,
+                        loop: false
+                    }
+                }
+            })--}}
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js"></script>
+        <script>
+                $('.logo-slider').slick({
+                    slidesToShow: 4,
+                slidesToScroll: 1,
+                dots: true,
+                arrows: true,
+                autoplayspeed: 10000,
+                infiniite: true
+    });
+        </script>
+
+    </body>
+
+</html>

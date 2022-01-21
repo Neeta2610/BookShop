@@ -1,0 +1,48 @@
+{{!-- <div class="col-md-4 offset-md-4 top-pad-100">
+	<form class="form-signin"  method="post">
+		<input type="hidden" name="frm_referringUrl" value="{{referringUrl}}">
+		<h2 class="form-signin-heading">{{ @root.__ "Please sign in" }}</h2>
+		<div class="form-group">
+			<input type="email" id="adminemail" name="adminemail" class="form-control" placeholder="email address" required autofocus>
+		</div>
+		<div class="form-group">
+			<input type="password" id="adminpassword" name="adminpassword" class="form-control" placeholder="Password" required>
+		</div>
+		<button class="btn  btn-outline-primary btn-block" id="adminloginForm" type="submit">{{ @root.__ "Sign in" }}</button>
+	</form>
+</div> --}}
+<main class="login-page container py-4 py-lg-5 my-4">
+  <div class="row">
+    <div class="col-md-6 m-auto">
+      <div class="card border-0 box-shadow" style="width: 100%;">
+        <div class="card-body">
+          <h2 class="h4 mb-1">Sign in</h2>
+          <hr>
+          <form class="needs-validation top-marg-25" novalidate autocomplete="off" id="signin-tab">
+            <div class="input-group-overlay form-group">
+              <div class="input-group-prepend-overlay"><span class="input-group-text"><i class="czi-mail"></i></span>
+              </div>
+              <input class="form-control prepended-form-control" type="email" id="adminemail" name="adminemail" placeholder="Email" required>
+               <div class="invalid-feedback">Please provide a valid email address.</div>
+            </div>
+            <div class="input-group-overlay form-group">
+              <div class="input-group-prepend-overlay"><span class="input-group-text"><i class="czi-locked"></i></span>
+              </div>
+              <div class="password-toggle" for="si-password">
+                <input class="form-control prepended-form-control" type="password" id="adminpassword" name="adminpassword" placeholder="Password" required>
+                <label class="password-toggle-btn">
+                  <input class="custom-control-input password-show" type="checkbox"><i
+                    class="czi-eye password-toggle-indicator"></i><span class="sr-only">Show password</span>
+                </label>
+              </div>
+            </div>
+            <hr class="mt-4">
+            <div class="text-right pt-4">
+              <button class="btn btn-primary btn-shadow" id="adminloginForm" type="submit"><i class="czi-sign-in mr-2 ml-n21"></i>Sign In</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>

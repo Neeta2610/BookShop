@@ -1,0 +1,17 @@
+{{> partials/menu}}
+<main role="main" class="ml-sm-auto col-lg-10 px-4">
+	<div class="col-12">
+		<div class="page-header">
+			<div class="float-right">
+				<button type="submit" id="btnSchoolAdd" class="btn btn-outline-success">{{ @root.__ "Create" }}</button>
+			</div>
+			<h2>{{ @root.__ "New School" }}</h2>
+		</div>
+		<form id="schoolNewForm" data-toggle="validator" autocomplete="off">
+			<div class="form-group">
+				<label>{{ @root.__ "School Name" }} *</label>
+				<input type="text" class="form-control" id="usersName" value="{{user.usersName}}" required>
+			</div>
+		</form>
+	</div>
+</main>

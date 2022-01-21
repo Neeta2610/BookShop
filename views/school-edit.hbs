@@ -1,0 +1,73 @@
+{{> partials/menu}}
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form method="post" id="uploadSchoolForm" enctype="multipart/form-data"></form>
+            <div class="modal-header">
+                <button type="button" class="close marg-left-5" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="myModalLabel">{{ @root.__ "Product image upload" }}</h4>
+            </div>
+            <div class="modal-body">
+                <span class="btn btn-outline-info btn-file">
+                    {{ @root.__ "Select file" }}<input type="file" name="uploadFile" id="uploadFile" form="uploadSchoolForm" onchange="readURL(this)">
+                </span>
+                 <img id="blah" src="#" alt="Your image" />
+                <input type="hidden" id="schoolId" name="schoolId" value="{{school._id}}"/>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button type="button" id="uploadSchoolButton" class="btn btn-outline-primary">{{ @root.__ "Upload" }}</button>
+            </div>
+        </div>
+    </div>
+</div>
+<main role="main" class="ml-sm-auto col-lg-10 px-4">
+	<div class="col-12">
+		<div class="page-header">
+			<div class="float-right">
+				<button type="submit" id="btnUserAdd" class="btn btn-outline-success">{{ @root.__ "Create" }}</button>
+                <button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#myModal">{{ @root.__ "Upload image" }}</button>
+			</div>
+			<h2>{{ @root.__ "New School" }}</h2>
+		</div>
+		<form id="schoolNewForm" data-toggle="validator" autocomplete="off">
+			<div class="form-group">
+				<label>{{ @root.__ "School Name" }} *</label>
+				<input type="text" class="form-control" id="usersName" value="{{school.schoolName}}" required>
+			</div>
+		</form>
+	</div>
+     <div class="col-sm-12">
+                <div id="product-images">
+                    <h2>{{ @root.__ "Product images" }}</h2>
+                    {{#if school.productImage}}
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div>
+                                <a data-id="{{school.productImage.id}}" class="btn-delete-image-school btn btn-outline-danger">{{ @root.__ "Delete" }}</a>
+                            </div>
+                            <img src="{{school.productImage.path}}" class="product-main-image img-fluid">
+                        </div>
+                    </div>
+                    {{else}}
+                        <h4 class="text-warning">{{ @root.__ "No images have been uploaded for this school" }}</h4>
+                    {{/if}}
+                </div>
+            </div>
+</main>
+<script>
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#blah')
+                    .attr('src', e.target.result)
+                    .width(80)
+                    .height(100);
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+</script>

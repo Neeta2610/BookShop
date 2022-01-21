@@ -1,0 +1,442 @@
+
+{{> themes/Cloth/front-menu}}
+
+{{!-- <div class="productsWrapper col-sm-12 col-md-8 offset-md-2">
+
+    {{#if filtered}}
+        <div class="product-layout product-results col-sm-12">
+            {{#ifCond @root.paginateUrl '==' 'category'}}
+            <h1>{{ @root.__ "Category" }}: <strong>{{@root.searchTerm}}</strong></h1>
+            {{else}}
+            <h1>{{ @root.__ "Search results" }}: <strong>{{@root.searchTerm}}</strong></h1>
+            {{/ifCond}}
+        </div>
+    {{/if}}
+    <div class="row product-layout">
+        {{#ifCond results.length '==' 0}}
+            <div class="col-sm-12">
+                <p class="text-danger">{{ @root.__ "No products found" }}</p>
+            </div>
+        {{/ifCond}}
+        {{#each results}}
+            <div class="{{perRowClass ../config.productsPerRow}}">
+                <div class="thumbnail">
+                    {{#if productPermalink}}
+                        <div class="product-wrapper">
+                            <a href="/product/{{this.productPermalink}}">
+                                <div class="vertical-center img-thumbnail">
+                                    {{#if productImage}}
+                                        <img class="img-fluid" src="{{this.productImage}}" alt="...">
+                                    {{else}}
+                                        <img class="img-fluid" src="/uploads/placeholder.png" alt="...">
+                                    {{/if}}
+                                </div>
+                                <h3 class="product-title product-title-home top-pad-10">
+                                    {{this.productTitle}}
+                                </h3>
+                            </a>
+                        </div>
+                    {{else}}
+                        <a href="/product/{{this._id}}">
+                            <div class="vertical-center img-thumbnail">
+                                {{#if productImage}}
+                                    <img class="img-fluid" src="{{this.productImage}}" alt="...">
+                                {{else}}
+                                    <img class="img-fluid" src="/uploads/placeholder.png" alt="...">
+                                {{/if}}
+                            </div>
+                            <h3 class="product-title product-title-home top-pad-10">
+                                {{this.productTitle}}
+                            </h3>
+                        </a>
+                    {{/if}}
+                    {{#if variants}}
+                        <div class="col-md-12">
+                            {{#if @root.config.showHomepageVariants}}
+                            <select id="productVariant-{{this._id}}" class="productVariant form-control mb-2">
+                            {{#each variants}}
+                                <option value="{{this._id}}" data-price="{{this.price}}">{{this.title}} - {{currencySymbol @root.config.currencySymbol}}{{this.price}}</option>
+                            {{/each}}
+                            </select>
+                            {{else}}
+                            <h4 class="product-price mp-0 text-center">
+                                {{currencySymbol @root.config.currencySymbol}}{{formatAmount variants.0.price}}
+                            </h4>
+                            {{/if}}
+                        </div>
+                    {{else}}
+                        <h4 class="product-price mp-0 text-center">
+                            {{currencySymbol @root.config.currencySymbol}}{{formatAmount productPrice}}
+                        </h4>
+                    {{/if}}
+                    <p class="text-center">
+                        {{#if @root.config.showHomepageVariants}}
+                        <a class="btn btn-primary add-variant-to-cart" data-id="{{this._id}}" role="button">{{ @root.__ "Add to cart" }}</a>
+                        {{else}}
+                        <a class="btn btn-primary add-to-cart" data-id="{{this._id}}" data-link="{{this.productPermalink}}" data-has-variants="{{checkProductVariants this.variants}}" role="button">{{ @root.__ "Add to cart" }}</a>
+                        {{/if}}
+                    </p>
+                </div>
+            </div>
+        {{/each}}
+    </div>
+</div>  --}}
+
+
+<!--<div class="Categories">
+  <h3>Shop By Class
+    <hr>
+  </h3>
+
+<div class="row">
+      <div class="card">
+        <div class="card-header">
+          <h1>Class I</h1>
+        </div>
+        </div>
+      <div class="card">
+        <div class="card-header">
+          <h1>Class II</h1>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <h1>Class III</h1>
+        </div>
+        
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <h1>Class IV</h1>
+        </div>
+       
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <h1>Class V</h1>
+        </div>
+        
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <h1>Class VI</h1>
+        </div>
+        
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <h1>Class VII</h1>
+        </div>
+        
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <h1>Class VIII</h1>
+        </div>
+        
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <h1>Class IX</h1>
+        </div>
+        
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <h1>Class X</h1>
+        </div>
+        
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <h1>Class XI</h1>
+        </div>
+        
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <h1>Class XII</h1>
+        </div>
+        
+      </div>
+</div>
+     
+      
+</div>  -->
+
+
+
+{{!-- <div class="productslider1">
+            <h3 class="title">Shop By School
+                <hr>
+            </h3>
+
+
+
+    {{#if filtered}}
+        <div class="product-layout product-results col-sm-12">
+            {{#ifCond @root.paginateUrl '==' 'category'}}
+            <h1>{{ @root.__ "Category" }}: <strong>{{@root.searchTerm}}</strong></h1>
+            {{else}}
+            <h1>{{ @root.__ "Search results" }}: <strong>{{@root.searchTerm}}</strong></h1>
+            {{/ifCond}}
+        </div>
+    {{/if}}
+      
+            
+    <div class="parent-box owl-carousel">
+               
+  
+        {{#ifCond results.length '==' 0}}
+            <div class="col-sm-12">
+                <p class="text-danger">{{ @root.__ "No products found" }}</p>
+            </div>
+        {{/ifCond}}
+        
+        
+        {{#each results}}
+        <div class="box">
+         <div class="single-product"> 
+           
+             
+                    {{#if productPermalink}}
+                        
+                            <a href="/product/{{this.productPermalink}}">
+                                <div class="product-thumb">
+                                    {{#if productImage}}
+                                        <img src="{{this.productImage.[0].path}}" alt="...">
+                                    {{else}}
+                                        <img src="/uploads/placeholder.png" alt="...">
+                                    {{/if}}
+                                     <a class="btn-round" data-id="{{this._id}}" data-link="{{this.productPermalink}}" data-has-variants="{{checkProductVariants this.variants}}" role="button"><i class="fa fa-shopping-cart"></i></a>
+                                  </div>
+                                
+                                <div class="product-title">
+                                  <h3>
+                                    {{this.productTitle}}
+                                  </h3>
+                                     {{#if variants}}
+                       
+                            {{#if @root.config.showHomepageVariants}}
+                            <select id="productVariant-{{this._id}}">
+                            {{#each variants}}
+                              <option value="{{this._id}}" data-price="{{this.price}}">{{this.title}} - {{currencySymbol @root.config.currencySymbol}}{{this.price}}</option>
+                            {{/each}}
+                            </select>
+                            {{else}}
+                            <p>
+                                {{currencySymbol @root.config.currencySymbol}}{{formatAmount variants.0.price}}
+                            </p>
+                            {{/if}}
+                
+                    {{else}}
+                        <p>
+                            {{currencySymbol @root.config.currencySymbol}}{{formatAmount productPrice}}
+                            <span>₹950</span>
+                        </p>
+                    {{/if}}
+                    <span class="save">Save ₹32</span>
+                                </div>
+                            </a>
+                        
+                    {{else}}
+                        <a href="/product/{{this._id}}">
+                            <div class="product-thumb">
+                                {{#if productImage}}
+                                    <img src="{{this.productImage.[0].path}}" alt="...">
+                                {{else}}
+                                    <img src="/uploads/placeholder.png" alt="...">
+                                {{/if}}
+                                 <a class="btn-round" data-id="{{this._id}}" data-link="{{this.productPermalink}}" data-has-variants="{{checkProductVariants this.variants}}" role="button"><i class="fa fa-shopping-cart"></i></a>
+                           </div>
+
+                           <div class="product-title">
+                           <h3>         {{this.productTitle}}
+                           </h3>
+                              {{#if variants}}
+                       
+                            {{#if @root.config.showHomepageVariants}}
+                            <select id="productVariant-{{this._id}}">
+                            {{#each variants}}
+                              <option value="{{this._id}}" data-price="{{this.price}}">{{this.title}} - {{currencySymbol @root.config.currencySymbol}}{{this.price}}</option>
+                            {{/each}}
+                            </select>
+                            {{else}}
+                            <p>
+                                {{currencySymbol @root.config.currencySymbol}}{{formatAmount variants.0.price}}
+                            </p>
+                            {{/if}}
+                
+                    {{else}}
+                        <p>
+                            {{currencySymbol @root.config.currencySymbol}}{{formatAmount productPrice}}
+                            <span>₹950</span>
+                        </p>
+                    {{/if}}
+                          <span class="save">Save ₹32</span>
+                           </div>
+                        
+                        </a>
+                    
+                    {{/if}}
+                 
+          </div>
+        </div>
+        {{/each}}
+    
+    </div>
+</div>  --}}   
+       <div class="productslider1">
+             <h3 class="title">Shop By School
+                <hr>
+            </h3>
+</div>
+
+<div class="offers1">
+  <div class="parent-box owl-carousel">
+  {{#each schools}}
+   <div class="box">
+      <div class="single-product">
+        <div class="product-thumb">
+  <a class="" href="/school/{{this._id}}"><img src="{{this.productImage.path}}" alt=""></a>
+  
+  </div>
+  </div>
+  </div>
+  {{/each}}
+</div>
+</div>
+
+
+{{!-- Purva's Code --}}
+
+<div class="productslider1">
+  <h3 class="title">Best Sellers
+    <hr>
+  </h3>
+  <div class="parent-box owl-carousel">
+{{#each results}}
+    <div class="box">
+      <div class="single-product">
+        <div class="product-thumb">
+        <a href="/product/{{this._id}}"><img src="{{this.productImage.path}}"></a>  
+          <a data-id="{{this._id}}" class="btn-round" data-val ="{{this.productSchool}}"><i class="fa fa-shopping-cart"></i></a>
+        </div>
+
+        <div class="product-title">
+          <h3>{{this.productTitle}}</h3>
+
+          <span><p>{{currencySymbol ../config.currencySymbol}}{{formatAmount productPrice}}
+                            
+                        </p></span>
+          
+        <!--  <span class="save">Save ₹1</span> -->
+        </div>
+
+      </div>
+    </div>
+{{/each}}
+
+  </div>
+</div>
+
+<div class="offer2">
+  <a href=""><img src="/images/banner/slider/1.png" alt=""></a>
+  <a href=""><img src="/images/banner/slider/6.png" alt=""></a>
+  <a href=""><img src="/images/banner/slider/2.png" alt=""></a>
+</div>
+
+<div class="productslider1">
+  <h3 class="title">Special Deals
+    <hr>
+  </h3>
+  <div class="parent-box owl-carousel">
+{{#each special}}
+    <div class="box">
+      <div class="single-product">
+        <div class="product-thumb">
+          <img src="{{this.productImage.path}}">
+          <a href="{{this._id}}" class="btn-round" data-val ="{{this.productSchool}}"><i class="fa fa-shopping-cart"></i></a>
+        </div>
+
+        <div class="product-title">
+          <h3>{{this.productTitle}}</h3>
+         {{!-- <span>{{this.productPrice}}</span>  --}}
+          <span><p>{{currencySymbol ../config.currencySymbol}}{{formatAmount productPrice}}
+                            
+                        </p></span>
+        </div>
+
+      </div>
+    </div>
+{{/each}}
+
+  </div>
+</div>
+
+<input type="hidden" id="itemsPerPage" value="{{productsPerPage}}">
+<input type="hidden" id="pageNum" value="{{pageNum}}">
+<input type="hidden" id="totalItemCount" value="{{totalProductCount}}">
+<input type="hidden" id="paginateUrl" value="{{paginateUrl}}">
+<input type="hidden" id="searchTerm" value="{{searchTerm}}">
+{{!-- <div class="col-md-12">
+  <div id="pager" class="d-flex justify-content-center"></div>
+</div> --}}
+{{!-- Publishers --}}
+<div class="Categories">
+  <h3 class="title">Associated Publishers
+    <hr>
+  </h3>
+  <div class="row">
+  <div class="column">
+    <img src="/images/brands/brand logo/1.png" alt="" style="width:100%">
+  </div>
+  <div class="column">
+    <img src="/images/brands/brand logo/2.png" alt="" style="width:100%">
+  </div>
+  <div class="column">
+    <img src="/images/brands/brand logo/3.png" alt="" style="width:100%">
+  </div>
+   
+</div>
+ <div class="container">
+       
+       <div class="logo-slider">
+           <div class="item"><a href="#"><img src="/images/brands/brand logo/4.png" alt=""></a></div>
+           <div class="item"><a href="#"><img src="/images/brands/brand logo/5.png" alt=""></a></div>
+           <div class="item"><a href="#"><img src="/images/brands/brand logo/6.jfif" alt=""></a></div>
+           <div class="item"><a href="#"><img src="/images/brands/brand logo/7.png" alt=""></a></div>
+           <div class="item"><a href="#"><img src="/images/brands/brand logo/8.png" alt=""></a></div>
+           <div class="item"><a href="#"><img src="/images/brands/brand logo/9.png" alt="" style="height: 12em;"></a></div>
+           <div class="item"><a href="#"><img src="/images/brands/brand logo/10.png" alt=""></a></div>
+           <div class="item"><a href="#"><img src="/images/brands/brand logo/11.png" alt=""></a></div>
+           <div class="item"><a href="#"><img src="/images/brands/brand logo/12.png" alt=""></a></div>
+           <div class="item"><a href="#"><img src="/images/brands/brand logo/13.jpg" alt=""></a></div>
+           <div class="item"><a href="#"><img src="/images/brands/brand logo/14.png" alt=""></a></div>
+           <div class="item"><a href="#"><img src="/images/brands/brand logo/15.png" alt=""></a></div>
+           <div class="item"><a href="#"><img src="/images/brands/brand logo/16.png" alt=""></a></div>
+           
+           
+       </div>
+       
+   </div>
+ 
+
+</div>
+<div class="newsletter">
+  <div class="side">
+    <i class="fas fa-mail-bulk"></i>
+    <div class="signupnews">
+      <h4>Sign Up for Newsletter</h4>
+      <small>Keep me updated</small>
+    </div>
+  </div>
+  <div class="right-side">
+    <form action="">
+      <input type="text" placeholder="Enter your Email Address">
+      <button type="submit"><i class="far fa-paper-plane"></i></button>
+    </form>
+  </div>
+</div>
+
+
